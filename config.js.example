@@ -1,0 +1,4 @@
+module.exports = {
+  target: 'http://127.0.0.1:80',
+  apiPath: '' // api 请求地址前缀
+}
