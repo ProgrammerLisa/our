@@ -1,2 +1,3 @@
-# our
-日复一日 年复一年
+## 食用步骤
+### npm i
+### npm run serve
