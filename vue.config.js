@@ -83,9 +83,12 @@ module.exports = {
     https: false,
     hotOnly: false,
     proxy: {
-      '/pf-api': {
+      '/api': {
         target: serverHost,
-        changeOrigin: true
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
       }
     }, // string | Object
     before: app => {

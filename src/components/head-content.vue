@@ -14,7 +14,10 @@
     </div>
     <div class="right">
       <div class="avatar"></div>
-      <el-dropdown @command="handleCommand">
+      <div v-if="!user.name">
+        <el-button size="small" @click="goLogin">登录</el-button>
+      </div>
+      <el-dropdown @command="handleCommand" v-else>
         <div class="user">{{ user.name }}</div>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="setSelf">个人设置</el-dropdown-item>
@@ -70,17 +73,20 @@ export default {
       if (command === 'logout') {
         this.logout()
       } else if (command === 'setSelf') {
-        this.$router.push({ name: 'setSelf'})
+        // this.$router.push({ name: 'setSelf'})
       }
     },
     async logout () {
-      const { code, data } = await logout()
-      if (code === 200) {
+      // const { code, data } = await logout()
+      // if (code === 200) {
         this.$store.commit('clearPermission')
         this.$store.commit('clearMenuList')
         this.$store.commit('clearUser')
-        this.$router.push({ name: 'login', replace: true })
-      }
+        // this.$router.push({ name: 'login', replace: true })
+      // }
+    },
+    goLogin () {
+      this.$router.push({ name: 'login' })
     }
   }
 }
@@ -113,7 +119,7 @@ export default {
 
     .user {
       font-size: 14px;
-      color: #333333;
+      color: #fff;
       cursor: pointer;
       &:hover {
         color: #409EFF;

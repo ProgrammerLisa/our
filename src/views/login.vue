@@ -21,18 +21,16 @@
 </template>
 
 <script>
-import { login } from '@/api/login'
-import validate from '@/utils/tools'
+import api from '@/api/login'
 import { Message, Notification } from 'element-ui';
 import { async } from 'q';
 
 export default {
-  name: '',
   data () {
     return {
       loginForm: {
-        account: '',
-        password: ''
+        account: null,
+        password: null
       },
       rules: {
         account: [
@@ -46,6 +44,7 @@ export default {
     }
   },
   created() {
+
   },
   methods: {
     async handleLogin(formName) {
@@ -58,10 +57,9 @@ export default {
       })
     },
     async loginUser () {
-      const { code, data } = await login({ account: this.loginForm.account, pwd: this.loginForm.password })
+      const { code, data } = await api.login(this.loginForm)
       if (code === 200) {
-        this.$store.commit('setPermission', data.permisssionKey)
-        this.$store.commit('setMenuList')
+        // this.$store.commit('setPermission', data.permisssionKey)
         this.$store.commit('setUser', { name: this.loginForm.account, id: this.loginForm.account, avatar: '' })
         this.$router.replace({ name: 'main' })
       }

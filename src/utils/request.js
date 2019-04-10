@@ -32,8 +32,7 @@ function checkStatus (response) {
     if (response.data.status.errCode === 200) {
       return {
         code: response.data.status.errCode,
-        data: response.data.data,
-        err: response.data.status.message
+        data: response.data.data
       }
     } else {
       return {
