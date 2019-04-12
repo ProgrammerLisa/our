@@ -19,7 +19,7 @@ const BLACK_LIST = ['character']
 router.beforeEach((to, from, next) => {
   // const user = store.state.user.userInfo.name
   // 这里做一些登录、权限的验证
-  if (to.path === '/') {
+  if (to.path === '/' || to.path === '/main') {
     // 已登录访问登录页或者路由为/时，重定向至首页
     next({ path: '/home' })
   } else {

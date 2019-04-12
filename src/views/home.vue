@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import carousel from '@/components/carousel'
+import carousel from '@/components/carousel-box'
 export default {
   components: { 'y-carousel': carousel },
   data () {

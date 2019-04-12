@@ -1,129 +1,55 @@
 <template>
   <div class="carousel" ref="carousel">
-    <div v-for="(p, index) in pointList" :key="index" ref="point" class="point">
-      <div  v-if="!p.finish"></div>
+    <div v-for="(p, index) in pic" :key="'pic' + index" class="picture" :style="p.style"><img :src="p.image" /></div>
+    <div class="y-icon y-icon-left" @click="changeActive(active-1)"><i class="el-icon-arrow-left"></i></div>
+    <div class="y-icon y-icon-right" @click="changeActive(active+1)"><i class="el-icon-arrow-right"></i></div>
+    <div class="image-index">
+      <span :class="{'active': index === active}" @click="changeActive(index)" v-for="(p, index) in pic" :key="'icon' + index"></span>
     </div>
   </div>
 </template>
 <script>
-import { setInterval, clearInterval, setTimeout } from 'timers';
-import { fail } from 'assert';
+import pic1 from '@/assets/img/carousel/pic1.svg'
+import pic2 from '@/assets/img/carousel/pic2.svg'
+import pic3 from '@/assets/img/carousel/pic3.svg'
 export default {
   data () {
-    let time = new Date().getTime()
     return {
-      maxWidth: null,
-      maxHeight: null,
-      pointList: [],
-      point: {
-        backgroundColor: 'rgba(34, 206, 195, 0.6)',
-        length: '10px',
-        speed: 20,
-        x: '300px',
-        y: '0px',
-        time: 'point' + time,
-        finish: false
-      },
-      init: null,
+      pic: [{image: pic1, style: null}, {image: pic2, style: null}, {image: pic3, style: null}],
+      active: 0,
+      maxHeight: null
     }
   },
   created () {
-    this.init = this.initList()
+    
   },
   mounted () {
-    const _this = this
     this.maxHeight = this.$refs.carousel.offsetHeight
-    this.maxWidth = this.$refs.carousel.offsetWidth
-    this.initObj()
-    let falling = setInterval(() => {
-      // _this.revive()
-    }, 1000)
   },
   methods: {
-    // 初始化数组
-    initList (obj) {
-      const _this = this
-      const point = obj || _this.point
-      _this.pointList.push(point)
-      return point.time
-      // this.$parent.$emit('windowInfo', { width: this.$refs.carousel.offsetWidth, height: this.$refs.carousel.offsetHeight })
-    },
-    // 初始化对象
-    initObj (obj) {
-      const _this = this
-      let objTime, point, screen, subscript, objData
-      if (obj) {
-        objTime = obj.time
+    changeActive (subIndex) {
+      let sub
+      if (subIndex < 0) {
+        sub = this.pic.length-1
+      } else if (subIndex > this.pic.length-1) {
+        sub = 0
       } else {
-        objTime = _this.init
-        obj = new Object()
+        sub = subIndex
       }
-      screen = _this.pointList.map((i, index) => {
-        if(i.time === objTime) {
-          return { content: i, sub: index }
-        }
-      })
-      subscript = screen.filter(sub => sub !== undefined)
-      objData = subscript[0].content
-      
-      point = _this.$refs.point[subscript[0].sub]
-      point.style.width = objData.length
-      point.style.height = objData.length
-      point.style.backgroundColor = objData.backgroundColor
-      point.style.left = objData.x
-      point.style.top = objData.y
-      point.setAttribute('speed', objData.speed)
-      point.setAttribute('time', objData.time)
-      point.setAttribute('finish', objData.finish)
-      _this.falling(point)
-    },
-    // 下落
-    falling (obj) {
-      const _this = this
-      let y = parseFloat(obj.style.top.replace('px', ''))
-      let screen = _this.pointList.map((i, index) => {
-        if(i.time === obj.getAttribute('time')) {
-          return { content: i, sub: index }
-        }
-      })
-      let subscript = screen.filter(sub => sub !== undefined)
-      let falling = setInterval(() => {
-        y += 1
-        obj.style.top = y + 'px'
-        if (y > _this.maxHeight) {
-          clearInterval(falling)
-          _this.delPoint(obj.getAttribute('time'))
-        }
-      }, parseInt(obj.getAttribute('speed')))
-    },
-    // 再生
-    async revive (status) {
-      const _this = this
-      const randomNum = Math.random()
-      const time = new Date().getTime()
-      const point = {
-        backgroundColor: `rgba(${ parseInt(255 * randomNum) }, ${ parseInt(255 * randomNum) }, ${ parseInt(255 * randomNum) }, ${ parseInt(randomNum*10)/10 })`,
-        length: 15 * (randomNum + 0.6) + 'px',
-        speed: 20,
-        x: (_this.maxWidth - 15 * (randomNum + 0.6)) * randomNum + 'px',
-        y: - 15 * (randomNum + 0.6) + 'px',
-        time: 'point' + time,
-        finish: false
-      }
-      await _this.initList(point)
-      await _this.initObj(point)
-    },
-    // 删除
-    async delPoint (time) {
-      const _this = this
-      let delIndex
-      await this.pointList.forEach((item, index) => {
-        if (item.time === time) {
-          // item.finish = true
-          _this.$refs.point[index] = ''
-          // console.log(_this.$refs.point[index].innerHtml)
-          delIndex = index
-          return delIndex
+      let top = - this.maxHeight * sub
+      this.pic.forEach((item, index) => {
+        if (index === sub) {
+          if (index === 0) {
+            this.pic[index].style = `visibility: visible`
+          }
+          this.pic[index].style = `margin-top: ${top}px`
+          this.active = sub
+        } else {
+          if (index === 0) {
+            this.pic[index].style = `visibility: hidden`
+          } else {
+            this.pic[index].style = `margin-top: 0px`
+          }
         }
       })
     }
@@ -131,33 +57,87 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-  .carousel {
+  .carousel{
     width: 100%;
-    height: 300px;
-    background: #fff;
+    height: 100%;
     position: relative;
-    // overflow: hidden;
+    
+    .picture {
+      width: 100%;
+      height: 100%;
+      transition: 1s;
 
-    .point {
-      position: absolute;
-      -webkit-animation: rotate 2s linear 2s 5 alternate;
-      animation: rotate 2s linear infinite;
+      img {
+        width: 100%;
+        min-height: 300px;
+      }
     }
   }
-  @-webkit-keyframes rotate {
-    from {
-      -webkit-transform: rotate(0deg)
+  .y-icon {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 50px;
+    height: 50px;
+    font-size: 36px;
+    text-align: center;
+    border-radius: 50%;
+    background: #ffffff;
+    opacity: 0.5;
+    color: #333;
+    z-index: 99;
+    cursor: pointer;
+  }
+  .y-icon:hover {
+    animation: icons 2s linear infinite;
+  }
+  .y-icon-left {
+    left: 20px;
+  }
+  .y-icon-right {
+    right: 20px;
+  }
+  .image-index {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+
+    span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #ffffff;
+      border-radius: 50%;
+      margin: 0 10px;
+      opacity: 0.5;
+      cursor: pointer;
     }
-    to {
-      -webkit-transform: rotate(360deg)
+    span:hover {
+      opacity: 1;
+      transform: scale(1.5);
+      transition: 0.5s;
+    }
+    span.active {
+      opacity: 1;
+      transform: scale(1.5);
     }
   }
-  @keyframes rotate {
+  @keyframes icons {
     from {
-      transform: rotate(0deg)
+      opacity: 0.5;
+    }
+    25% {
+      opacity: 0.8;
+    }
+    50% {
+      opacity: 1;
+    }
+    75% {
+      opacity: 0.8;
     }
     to {
-      transform: rotate(360deg)
+     opacity: 0.5;
     }
   }
 </style>
