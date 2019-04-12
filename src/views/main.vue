@@ -50,6 +50,7 @@ export default {
     & + div {
       background: #FFFFFF;
     }
+    padding: 0;
   }
 
 }

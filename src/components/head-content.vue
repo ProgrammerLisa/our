@@ -97,7 +97,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  .left {}
+  .left {
+    .el-menu.el-menu--horizontal {
+      border-bottom: none;
+    }
+  }
 
   .right {
     height: 60px;
