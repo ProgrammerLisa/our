@@ -1,10 +1,10 @@
 <template>
   <div class="carousel" ref="carousel">
     <div v-for="(p, index) in pic" :key="'pic' + index" class="picture" :style="p.style"><img :src="p.image" /></div>
-    <div class="y-icon y-icon-left" @click="changeActive(active-1)"><i class="el-icon-arrow-left"></i></div>
-    <div class="y-icon y-icon-right" @click="changeActive(active+1)"><i class="el-icon-arrow-right"></i></div>
+    <div class="y-icon y-icon-left" @click="changeActive(active-1, 'handle')"><i class="el-icon-arrow-left"></i></div>
+    <div class="y-icon y-icon-right" @click="changeActive(active+1, 'handle')"><i class="el-icon-arrow-right"></i></div>
     <div class="image-index">
-      <span :class="{'active': index === active}" @click="changeActive(index)" v-for="(p, index) in pic" :key="'icon' + index"></span>
+      <span :class="{'active': index === active}" @click="changeActive(index, 'handle')" v-for="(p, index) in pic" :key="'icon' + index"></span>
     </div>
   </div>
 </template>
@@ -17,17 +17,57 @@ export default {
     return {
       pic: [{image: pic1, style: null}, {image: pic2, style: null}, {image: pic3, style: null}],
       active: 0,
-      maxHeight: null
+      maxHeight: null,
+      cutInserval: null,
+      cutTime: 7000,
+      cutStatus: true
     }
   },
   created () {
     
   },
   mounted () {
-    this.maxHeight = this.$refs.carousel.offsetHeight
+    const _this = this
+    _this.maxHeight = _this.$refs.carousel.offsetHeight
+    _this.cutTimeMain()
+    
+  },
+  watch: {
+    cutStatus (newVal, oldVal) {
+      const _this = this
+      if (newVal === true) {
+        _this.startCut()
+      } else {
+        _this.stopCut()
+      }
+    }
   },
   methods: {
-    changeActive (subIndex) {
+    cutTimeMain () {
+      const _this = this
+      _this.startCut()
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && _this.cutStatus === true) {
+          _this.startCut()
+        } else {
+          _this.stopCut()
+        }
+      })
+    },
+    startCut () {
+      const _this = this
+      _this.cutInserval = setInterval(() => {
+        _this.changeActive(_this.active + 1)
+      }, _this.cutTime)
+    },
+    stopCut () {
+      clearInterval(this.cutInserval)
+    },
+    changeActive (subIndex, way) {
+      if (way === 'handle') {
+        this.cutStatus = false
+        this.stopCut()
+      }
       let sub
       if (subIndex < 0) {
         sub = this.pic.length-1
@@ -44,6 +84,11 @@ export default {
           }
           this.pic[index].style = `margin-top: ${top}px`
           this.active = sub
+          if (this.cutStatus === false) {
+            this.cutStatus = true
+            this.startCut()
+          }
+          return
         } else {
           if (index === 0) {
             this.pic[index].style = `visibility: hidden`
@@ -66,14 +111,21 @@ export default {
       width: 100%;
       height: 100%;
       transition: 1s;
+      overflow: hidden;
 
       img {
         width: 100%;
-        min-height: 300px;
+        object-fit: cover;
       }
     }
   }
+  .carousel:hover .y-icon{
+    opacity: 0.5;
+    margin: 0px;
+  }
   .y-icon {
+    opacity: 0;
+    margin: 0 50px;
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
@@ -83,10 +135,10 @@ export default {
     text-align: center;
     border-radius: 50%;
     background: #ffffff;
-    opacity: 0.5;
     color: #333;
     z-index: 99;
     cursor: pointer;
+    transition: 1s;
   }
   .y-icon:hover {
     animation: icons 2s linear infinite;

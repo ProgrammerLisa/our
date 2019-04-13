@@ -18,7 +18,9 @@ export default {
       pointList: [],
       point: {
         style: {
-          backgroundColor: 'rgba(34, 206, 195, 0.6)',
+          backgroundColor: '#fff',
+          opacity: 1,
+          borderRadius: '50%',
           width: '10px',
           height: '10px',
           top: '-10px',
@@ -34,9 +36,18 @@ export default {
     const _this = this
     this.maxHeight = this.$refs.box.offsetHeight
     this.maxWidth = this.$refs.box.offsetWidth
-    let falling = setInterval(() => {
+    var falling = setInterval(() => {
       _this.revive()
-    }, 500)
+    }, 200)
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        falling = setInterval(() => {
+          _this.revive()
+        }, 200)
+      } else {
+        clearInterval(falling)
+      }
+    })
   },
   methods: {
     // 初始化数组
@@ -56,8 +67,11 @@ export default {
     falling (obj) {
       const _this = this
       let y = parseFloat(obj.style.top.replace('px', ''))
+      let opacity = parseFloat(obj.style.opacity)
       let falling = setInterval(() => {
         y += 1
+        opacity -= Math.random() * 0.004
+        obj.style.opacity = opacity
         obj.style.top = y + 'px'
         if (y > _this.maxHeight) {
           clearInterval(falling)
@@ -72,10 +86,13 @@ export default {
       const randomNum = Math.random()
       const point = {
         style: {
-          backgroundColor: `rgba(${ parseFloat(255 * Math.random()) }, ${ parseFloat(255 * Math.random()) }, ${ parseFloat(255 * Math.random()) }, ${ parseInt(randomNum * 10) / 10 })`,
-          height: 10 * (randomNum + 0.6) + 'px',
-          width: 10 * (randomNum + 0.6) + 'px',
-          top: - 10 * (randomNum + 0.6) + 'px',
+          backgroundColor: '#fff',
+          // backgroundColor: `rgb(${ parseFloat(255 * Math.random()) }, ${ parseFloat(255 * Math.random()) }, ${ parseFloat(255 * Math.random()) })`,
+          opacity: 1,
+          height: 10 * (randomNum + 0.4) + 'px',
+          width: 10 * (randomNum + 0.4) + 'px',
+          top: - 10 * (randomNum + 0.4) + 'px',
+          borderRadius: '50%',
           left: (_this.maxWidth - 10 * (randomNum + 0.6)) * randomNum + 'px',
         }
       }
@@ -87,8 +104,8 @@ export default {
 <style lang="less" scoped>
   .box {
     width: 100%;
-    height: 500px;
-    // background-image: linear-gradient(to right , #78C4CF, #fff);
+    height: calc(~'100vh - 60px');
+    background-image: linear-gradient(to bottom , #4C545B, #fff);
     position: relative;
     overflow: hidden;
     animation: color 2s linear infinite;

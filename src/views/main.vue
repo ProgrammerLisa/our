@@ -1,7 +1,7 @@
 <template>
   <el-container class="main-layout">
     <el-container>
-      <el-header>
+      <el-header ref="header">
         <head-content></head-content>
       </el-header>
       <el-main>
@@ -18,6 +18,8 @@ export default {
   name: '',
   components: { headContent },
   created() {
+  },
+  mounted () {
   },
   data() {
     return {
