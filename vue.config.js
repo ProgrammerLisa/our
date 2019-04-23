@@ -1,5 +1,6 @@
 const path = require('path')
 const config = require('./config')
+const webpack = require('webpack')
 
 const serverHost = config.serverHost
 
@@ -36,7 +37,16 @@ module.exports = {
     config.resolve.alias
       .set('@', resolve('src'))
   },
-  configureWebpack: () => {},
+  configureWebpack: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery',
+        Popper: ['popper.js', 'default']
+      })
+    ]
+  },
 
   // vue-loader 选项
   // 查阅 https://vue-loader.vuejs.org/zh-cn/options.html

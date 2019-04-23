@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import headContent from '@/components/head-content'
+import headContent from '@/components/bootstrap-head-content'
 
 export default {
   name: '',
@@ -42,7 +42,8 @@ export default {
   }
 
   .el-header {
-    background: #545c64;
+    // background: #545c64;
+    background: #222222;
     color: #fff;
     box-shadow: 0 0 5px rgba(33,33,33,0.1);
   }

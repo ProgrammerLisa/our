@@ -73,8 +73,10 @@ export default {
       timeout: 30000,
       withCredentials: true,
       headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        'Access-Control-Allow-Origin': '*',
+        'device': 'android'
+        // 'X-Requested-With': 'XMLHttpRequest',
+        // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
       }
     }).then(checkStatus).then(checkCode)
   },
