@@ -104,7 +104,8 @@ export default {
 <style lang="less" scoped>
   .box {
     width: 100%;
-    height: calc(~'100vh - 60px');
+    height: 500px;
+    // height: calc(~'100vh - 60px');
     background-image: linear-gradient(to bottom , #4C545B, #fff);
     position: relative;
     overflow: hidden;
