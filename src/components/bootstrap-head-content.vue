@@ -13,7 +13,8 @@
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" 
+        >
         <ul class="nav navbar-nav">
           <li v-for="(n, index) in navList" :key="index">
             <router-link :to="n.path" tag="a" :class="n.className">{{n.title}}</router-link>
@@ -54,6 +55,7 @@ export default {
   .navbar {
     margin: 0;
     border: none;
+    z-index: 999;
     .navbar-nav > li > a {
       line-height: 30px;
     }
