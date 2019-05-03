@@ -39,7 +39,7 @@ export default {
         { title: '个人中心', path: '/opinion', className: '' },
         { title: '微拍', path: '/goal', className: '' },
         { title: '名人堂', path: '/opinion', className: '' },
-        { title: '合作伙伴', path: '/home', className: '' }
+        { title: '聊天室', path: '/socket', className: '' }
       ]
     }
   },
