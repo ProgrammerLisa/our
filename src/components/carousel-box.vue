@@ -5,7 +5,6 @@
   </div>
 </template>
 <script>
-import { setInterval, clearInterval, setTimeout } from 'timers'
 import { fail } from 'assert'
 import carousel from './carousel'
 export default {
