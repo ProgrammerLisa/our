@@ -14,12 +14,11 @@ const router = [
     name: 'main',
     component: Main,
     children: [
-      { path: '/home', name: 'home', meta: { title: '首页' }, component: resolve => require(['@/views/home.vue'], resolve) },
-      { path: '/character', name: 'character', meta: { title: '个人简介' }, component: resolve => require(['@/views/character.vue'], resolve) },
-      { path: '/goal', name: 'goal', meta: { title: '目标' }, component: resolve => require(['@/views/goal.vue'], resolve) },
-      { path: '/opinion', name: 'opinion', meta: { title: '意见' }, component: resolve => require(['@/views/opinion.vue'], resolve) },
-      { path: '/empty', name: 'empty', meta: { title: '个人简介' }, component: resolve => require(['@/views/empty.vue'], resolve) },
-      { path: '/socket', name: 'socket', meta: { title: '聊天室' }, component: resolve => require(['@/views/socket'], resolve) }
+      { path: '/home', name: 'home', meta: { title: '首页' }, component: resolve => require(['@/views/navBar/home/home.vue'], resolve) },
+      { path: '/profile', name: 'profile', meta: { title: '个人简介' }, component: resolve => require(['@/views/navBar/profile/profile.vue'], resolve) },
+      { path: '/game', name: 'game', meta: { title: '游戏' }, component: resolve => require(['@/views/navBar/game/game.vue'], resolve) },
+      { path: '/library', name: 'library', meta: { title: '组件库' }, component: resolve => require(['@/views/navBar/library/library.vue'], resolve) },
+      { path: '/socket', name: 'socket', meta: { title: '聊天室' }, component: resolve => require(['@/views/navBar/chat/socket.vue'], resolve) }
     ]
   },
   // 应用的路由，渲染菜单

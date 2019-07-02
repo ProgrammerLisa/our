@@ -35,9 +35,9 @@ export default {
       logo: logo,
       navList: [
         { title: '首页', path: '/home', className: 'active' },
-        { title: '个人中心', path: '/opinion', className: '' },
-        { title: '俄罗斯方块', path: '/goal', className: '' },
-        { title: '名人堂', path: '/opinion', className: '' },
+        { title: '俄罗斯方块', path: '/game', className: '' },
+        { title: '组件库', path: '/library', className: '' },
+        { title: '个人中心', path: '/profile', className: '' },
         { title: '聊天室', path: '/socket', className: '' }
       ]
     }
