@@ -41,7 +41,7 @@ router.post('/api/login/createAccount', (req, res) => {
   })
 })
 // 获取已有账号接口
-router.get('/api/login', (req, res) => {
+router.post('/api/login', (req, res) => {
   const account = req.body.account
   const password = req.body.password
   if (!account || account === '') {
