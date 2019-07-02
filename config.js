@@ -3,5 +3,6 @@ module.exports = {
   serverHost: 'http://95.179.233.238', // 服务器地址
   apiPath: '',
   prod: false,
-  prodApiHost: 'http://95.179.233.238'
+  prodApiHost: 'http://95.179.233.238',
+  socketHost: 'ws://localhost:3000/'
 }

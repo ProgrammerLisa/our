@@ -1,7 +1,6 @@
 <template>
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
@@ -9,7 +8,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand"><img class="navbar-logo" :src="logo"/></a>
+        <a class="navbar-brand"><img class="navbar-logo" :src="logo" /></a>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -37,9 +36,9 @@ export default {
       navList: [
         { title: '首页', path: '/home', className: 'active' },
         { title: '个人中心', path: '/opinion', className: '' },
-        { title: '微拍', path: '/goal', className: '' },
+        { title: '俄罗斯方块', path: '/goal', className: '' },
         { title: '名人堂', path: '/opinion', className: '' },
-        { title: '合作伙伴', path: '/home', className: '' }
+        { title: '聊天室', path: '/socket', className: '' }
       ]
     }
   },

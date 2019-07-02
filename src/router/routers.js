@@ -18,7 +18,8 @@ const router = [
       { path: '/character', name: 'character', meta: { title: '个人简介' }, component: resolve => require(['@/views/character.vue'], resolve) },
       { path: '/goal', name: 'goal', meta: { title: '目标' }, component: resolve => require(['@/views/goal.vue'], resolve) },
       { path: '/opinion', name: 'opinion', meta: { title: '意见' }, component: resolve => require(['@/views/opinion.vue'], resolve) },
-      { path: '/empty', name: 'empty', meta: { title: '个人简介' }, component: resolve => require(['@/views/empty.vue'], resolve) }
+      { path: '/empty', name: 'empty', meta: { title: '个人简介' }, component: resolve => require(['@/views/empty.vue'], resolve) },
+      { path: '/socket', name: 'socket', meta: { title: '聊天室' }, component: resolve => require(['@/views/socket'], resolve) }
     ]
   },
   // 应用的路由，渲染菜单

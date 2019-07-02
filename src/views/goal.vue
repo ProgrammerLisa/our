@@ -1,23 +1,18 @@
 <template>
-  <div class="character">
-    目标
+  <div class="game">
+    <div></div>
   </div>
 </template>
 <script>
 export default {
-  data () {
-    return {
-      
-    }
-  },
-  created () {
-    
-  },
-  methods: {
-        
-  }
+
 }
 </script>
 <style lang="less" scoped>
-
+  .game {
+    background: rgba(219, 62, 62, 0.3);
+    width: 100%;
+    height: calc(100vh - 60px);
+    overflow: hidden;
+  }
 </style>

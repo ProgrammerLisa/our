@@ -104,7 +104,8 @@ module.exports = {
     before: app => {
       // `app` 是一个 express 实例
     },
-    overlay: true // 编译器错误或警告时，全屏提示
+    // 编译器错误或警告时，全屏提示
+    overlay: true
   },
 
   // 三方插件的选项

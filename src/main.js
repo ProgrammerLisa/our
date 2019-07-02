@@ -11,7 +11,6 @@ import './assets/css/app.less'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
 // import './assets/scss/elementui-theme.scss'
-
 Vue.use(ElementUI)
 
 Vue.prototype.api = api
